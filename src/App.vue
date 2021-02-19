@@ -1,5 +1,7 @@
 <template>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci corrupti, neque voluptate totam omnis voluptatibus nihil vero cupiditate vel tenetur, porro accusamus ipsa, necessitatibus nobis minus soluta excepturi ut repudiandae.
+  <div class="bg-red-500 container mx-auto">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci corrupti, neque voluptate totam omnis voluptatibus nihil vero cupiditate vel tenetur, porro accusamus ipsa, necessitatibus nobis minus soluta excepturi ut repudiandae.
+  </div>
 </template>
 
 <script lang="ts">
