@@ -1,5 +1,7 @@
 <template>
-  <TitleBar title="홈 메인"/>
+  <TitleBar>
+    홈 메인
+  </TitleBar>
 </template>
 
 <script lang="ts">
