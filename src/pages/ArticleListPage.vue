@@ -1,7 +1,6 @@
 <template>
-  <TitleBar>
-    게시물 리스트
-  </TitleBar>
+  <TitleBar>게시물 리스트</TitleBar>
+  <input type="checkbox" />
 </template>
 
 <script lang="ts">
