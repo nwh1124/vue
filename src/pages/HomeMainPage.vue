@@ -1,5 +1,5 @@
 <template>
-  <TitleBar title="AA"/>
+  <TitleBar title="홈 메인"/>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import TitleBar from '../components/TitleBar.vue'
 
 export default defineComponent({
   name: 'HomeMainPage',
-  component: {
+  components: {
     TitleBar
   }
 })

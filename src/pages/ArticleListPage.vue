@@ -1,5 +1,5 @@
 <template>
-  <TitleBar />
+  <TitleBar title="게시물 리스트"/>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import TitleBar from '../components/TitleBar.vue'
 
 export default defineComponent({
   name: 'ArticleListPage',
-  component: {
+  components: {
     TitleBar
   }
 })

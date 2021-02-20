@@ -11,7 +11,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   props:{
-    msg:{
+    title:{
       type: String,
       required: true
     }
