@@ -1,9 +1,9 @@
 <template>
-  <div class="form-row flex">
+  <div class="form-row flex flex-col md:flex-row">
     <div class="w-32 flex justify-center">
-      <span class="flex items-center">{{title}}</span>
+      <span class="md:flex md:items-center md:w-20">{{title}}</span>
     </div>
-    <div class="flex-grow">
+    <div class="md:flex-grow">
       <slot>        
       </slot>
     </div>
