@@ -6,6 +6,12 @@
   <section class="section article-wrtie-form px-2">
     <div class="container mx-auto">
       <form v-on:submit.prevent="checkAndWriteArticle">
+        <FormRow title="게시판">
+          <select class="form-row-select" ref="newArticleBoardIdElRef">
+            <option value="1">공지사항</option>
+            <option value="2">자유</option>
+          </select>
+        </FormRow>
         <FormRow title="제목">
           <input ref="newArticleTitleElRef" class="form-row-input" type="text" placeholder="제목을 입력해주세요."/>
         </FormRow>
@@ -23,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
+import { defineComponent, ref, reactive, getCurrentInstance, onMounted } from 'vue'
 import { IArticle } from '../types/'
 import { MainApi } from '../apis/'
 import { Router } from 'vue-router';
@@ -41,14 +47,29 @@ export default defineComponent({
     const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
 
+    const newArticleBoardIdElRef = ref<HTMLInputElement>();
     const newArticleTitleElRef = ref<HTMLInputElement>();
     const newArticleBodyElRef = ref<HTMLInputElement>();
+
+    onMounted(() => {
+      if(newArticleBoardIdElRef.value == null){
+        return;
+      }
+
+      newArticleBoardIdElRef.value.value = props.boardId + "";
+    })
 
     const state = reactive({
       articles: [] as IArticle[]
     });
     
-    function checkAndWriteArticle(){
+    function checkAndWriteArticle(){      
+      if(newArticleBoardIdElRef.value == null){
+        return;
+      }    
+
+      const newArticleBoardIdEl = newArticleBoardIdElRef.value;
+
       if(newArticleTitleElRef.value == null){
         return;
       }    
@@ -79,7 +100,7 @@ export default defineComponent({
         return;
       }
 
-      writeArticle(newArticleTitleEl.value, newArticleBodyEl.value);
+      writeArticle(parseInt(newArticleBoardIdEl.value), newArticleTitleEl.value, newArticleBodyEl.value);
 
       newArticleTitleEl.value = '';
       newArticleBodyEl.value = '';
@@ -88,7 +109,7 @@ export default defineComponent({
 
     }
 
-    function writeArticle(title:string, body:string){
+    function writeArticle(boardId:number, title:string, body:string){
       mainApi.article_doWrite(props.boardId, title, body)
         .then(axiosResponse => {
           const newArticleId = axiosResponse.data.body.id;
@@ -101,6 +122,7 @@ export default defineComponent({
     return{
       state,
       checkAndWriteArticle,
+      newArticleBoardIdElRef,
       newArticleTitleElRef,
       newArticleBodyElRef
     }
