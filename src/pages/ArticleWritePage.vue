@@ -5,25 +5,27 @@
 
   <section class="section article-wrtie-form px-2">
     <div class="container mx-auto">
-      <form v-on:submit.prevent="checkAndWriteArticle">
-        <FormRow title="게시판">
-          <select class="form-row-select" ref="newArticleBoardIdElRef">
-            <option value="1">공지사항</option>
-            <option value="2">자유</option>
-          </select>
-        </FormRow>
-        <FormRow title="제목">
-          <input ref="newArticleTitleElRef" class="form-row-input" type="text" placeholder="제목을 입력해주세요."/>
-        </FormRow>
-        <FormRow title="내용">
-          <textarea ref="newArticleBodyElRef" class="form-row-input" placeholder="내용을 입력해주세요."></textarea>
-        </FormRow>
-        <FormRow title="작성">
-          <div class="btns">
-            <input type="submit" value="작성" class="btn-primary" />
-          </div>
-        </FormRow>
-      </form>
+      <div class="px-6 py-6 bg-white rounded-lg shadow-md">
+        <form v-on:submit.prevent="checkAndWriteArticle">
+          <FormRow title="게시판">
+            <select class="form-row-select" ref="newArticleBoardIdElRef">
+              <option value="1">공지사항</option>
+              <option value="2">자유</option>
+            </select>
+          </FormRow>
+          <FormRow title="제목">
+            <input ref="newArticleTitleElRef" class="form-row-input" type="text" placeholder="제목을 입력해주세요.">
+          </FormRow>
+          <FormRow title="내용">
+            <textarea ref="newArticleBodyElRef" class="form-row-input" placeholder="내용을 입력해주세요."></textarea>
+          </FormRow>
+          <FormRow title="작성">
+            <div class="btns">
+              <input type="submit" value="작성" class="btn-primary" />
+            </div>
+          </FormRow>
+        </form>
+      </div>
     </div>
   </section>
 </template>
@@ -35,7 +37,7 @@ import { MainApi } from '../apis/'
 import { Router } from 'vue-router';
 
 export default defineComponent({
-  name: 'ArticleListPage',
+  name: 'ArticleWritePage',
   props: {
     boardId: {
       type: Number,

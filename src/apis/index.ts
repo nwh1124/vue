@@ -114,13 +114,13 @@ export class MainApi extends HttpClient {
   };
 
   protected _handleResponse(axiosResponse:AxiosResponse) : AxiosResponse {
-    if ( axiosResponse?.data?.resultCode == "F-B" ) {
-      alert('로그인 후 이용해주세요.');
-      location.replace('/member/login');
+    if ( ["F-A", "F-B"].includes(axiosResponse?.data?.resultCode) ) {
+        alert('로그인 후 이용해주세요.');
+        location.replace('/member/login');
     }
 
     return axiosResponse;
-  }
+  };
 
   // http://localhost:8021/usr/article/list?boardId=? 를 요청하고 응답을 받아오는 함수
   public article_list(boardId: number) {
@@ -134,7 +134,7 @@ export class MainApi extends HttpClient {
 
   public article_doWrite(boardId: number, title: string, body: string) {
     return this.postByForm<MainApi__article_doWrite__IResponseBody>(
-      `/article/doAdd?authKey=authKey1__1&`, {
+      `/article/doAdd`, {
         boardId,
         title,
         body
