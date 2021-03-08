@@ -1,7 +1,7 @@
 <template>
   <div class="form-row flex flex-col md:flex-row">
     <div class="w-32 flex justify-center">
-      <span class="md:flex md:items-center md:w-20">{{title}}</span>
+      <span class="md:flex md:items-center md:w-28">{{title}}</span>
     </div>
     <div class="md:flex-grow">
       <slot>        
