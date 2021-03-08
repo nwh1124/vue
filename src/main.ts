@@ -19,6 +19,7 @@ import ArticleListPage from './pages/ArticleListPage.vue'
 import ArticleWritePage from './pages/ArticleWritePage.vue'
 import ArticleDetailPage from './pages/ArticleDetailPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
+import MemberJoinPage from './pages/MemberJoinPage.vue'
 
 // 전역 상태status 만들기
 
@@ -79,6 +80,12 @@ const routes = [
   { 
     path: '/member/login', 
     component: MemberLoginPage ,
+    props: (route:any) => ({globalShare})
+  }, 
+
+  { 
+    path: '/member/join', 
+    component: MemberJoinPage ,
     props: (route:any) => ({globalShare})
   }, 
 
