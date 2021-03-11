@@ -14,6 +14,9 @@
           <FormRow title="로그인비밀번호확인">
             <input ref="loginPwConfirmElRef" class="form-row-input" type="password" placeholder="로그인비밀번호확인을 입력해주세요.">
           </FormRow>
+          <FormRow title="프로필 이미지">
+            <input ref="profileImgElRef" class="form-row-input" type="file" placeholder="프로필이미지를 선택해주세요.">
+          </FormRow>
           <FormRow title="이름">
             <input ref="nameElRef" class="form-row-input" type="text" placeholder="이름을 입력해주세요.">
           </FormRow>
@@ -58,6 +61,7 @@ export default defineComponent({
     const loginIdElRef = ref<HTMLInputElement>();
     const loginPwElRef = ref<HTMLInputElement>();
     const loginPwConfirmElRef = ref<HTMLInputElement>();
+    const profileImgElRef = ref<HTMLInputElement>();
     const nameElRef = ref<HTMLInputElement>();
     const nicknameElRef = ref<HTMLInputElement>();
     const phoneNumberElRef = ref<HTMLInputElement>();
@@ -139,10 +143,36 @@ export default defineComponent({
         emailEl.focus();
         return;
       }
-      join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, phoneNumberEl.value, emailEl.value);
+      
+      const startJoin = (genFileIdsStr:string) => {
+        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, phoneNumberEl.value, emailEl.value, genFileIdsStr);
+      };
+
+      const startFileUpload = (onSuccess:Function) => {
+        if (!!!profileImgElRef.value?.files){
+          onSuccess("");
+          return;
+        }
+
+        mainApi.common_genFile_doUpload(profileImgElRef.value?.files[0])
+        .then(axiosResponse => {
+          if(axiosResponse.data.fail){
+            alert(axiosResponse.data.msg);
+
+            return;
+          }
+          else{
+            onSuccess(axiosResponse.data.body.genFileIdsStr);
+          }
+        });
+
+      };
+
+      startFileUpload(startJoin);
+
     }
-    function join(loginId:string, loginPw:string, name:string, nickname:string, phoneNumber:string, email:string) {
-      mainApi.member_doJoin(loginId, loginPw, name, nickname, phoneNumber, email)
+    function join(loginId:string, loginPw:string, name:string, nickname:string, phoneNumber:string, email:string, genFileIdsStr:string) {
+      mainApi.member_doJoin(loginId, loginPw, name, nickname, phoneNumber, email, genFileIdsStr)
         .then(axiosResponse => {
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
@@ -155,6 +185,7 @@ export default defineComponent({
       checkAndJoin,
       loginIdElRef,
       loginPwElRef,
+      profileImgElRef,
       loginPwConfirmElRef,
       nameElRef,
       nicknameElRef,
